@@ -18,10 +18,17 @@ class TestBot(fp.PoeBot):
     async def get_response(
         self, request: fp.QueryRequest
     ) -> AsyncIterable[fp.PartialResponse]:
-        last_message = request.query[-1].content
-        yield fp.PartialResponse(text=last_message)
+        async for msg in fp.stream_request(
+            request, "GPT-3.5-Turbo", request.access_key
+        ):
+            # Add whatever logic you'd like here before yielding the result!
+            yield msg
+
+    async def get_settings(self, setting: fp.SettingsRequest) -> fp.SettingsResponse:
+        return fp.SettingsResponse(server_bot_dependencies={"GPT-3.5-Turbo": 1})
 
 
+# =============== MODAL CODE TO RUN THE BOT ================== #
 REQUIREMENTS = ["fastapi-poe==0.0.47"]
 image = Image.debian_slim().pip_install(*REQUIREMENTS)
 app = App(name="testbot-poe", image=image)
