@@ -18,7 +18,7 @@ class TestBot(fp.PoeBot):
     async def get_response(self, request: fp.QueryRequest) -> AsyncIterable[fp.PartialResponse]:
         async for msg in fp.stream_request(request, "Llama-3.1-8B-FW-128k", request.access_key):
             # Add whatever logic you'd like here before yielding the result!
-            msg = upper(msg)
+            msg = msg.upper()
             yield msg
 
     async def get_settings(self, setting: fp.SettingsRequest) -> fp.SettingsResponse:
