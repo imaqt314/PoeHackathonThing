@@ -15,13 +15,10 @@ from modal import App, Image, asgi_app, exit
 
 
 class TestBot(fp.PoeBot):
-    async def get_response(
-        self, request: fp.QueryRequest
-    ) -> AsyncIterable[fp.PartialResponse]:
-        async for msg in fp.stream_request(
-            request, "Llama-3.1-8B-FW-128k", request.access_key
-        ):
+    async def get_response(self, request: fp.QueryRequest) -> AsyncIterable[fp.PartialResponse]:
+        async for msg in fp.stream_request(request, "Llama-3.1-8B-FW-128k", request.access_key):
             # Add whatever logic you'd like here before yielding the result!
+            msg = upper(msg)
             yield msg
 
     async def get_settings(self, setting: fp.SettingsRequest) -> fp.SettingsResponse:
@@ -47,7 +44,8 @@ class Model:
         if self.bot_name and self.access_key:
             try:
                 fp.sync_bot_settings(self.bot_name, self.access_key)
-            except Exception:
+            except Exception as e:
+                print(e)
                 print("\n*********** Warning ***********")
                 print(
                     "Bot settings sync failed. For more information, see: https://creator.poe.com/docs/server-bots-functional-guides#updating-bot-settings"
