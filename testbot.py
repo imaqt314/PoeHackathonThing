@@ -19,13 +19,13 @@ class TestBot(fp.PoeBot):
         self, request: fp.QueryRequest
     ) -> AsyncIterable[fp.PartialResponse]:
         async for msg in fp.stream_request(
-            request, "GPT-3.5-Turbo", request.access_key
+            request, "Llama-3.1-8B-FW-128k", request.access_key
         ):
             # Add whatever logic you'd like here before yielding the result!
             yield msg
 
     async def get_settings(self, setting: fp.SettingsRequest) -> fp.SettingsResponse:
-        return fp.SettingsResponse(server_bot_dependencies={"GPT-3.5-Turbo": 1})
+        return fp.SettingsResponse(server_bot_dependencies={"Llama-3.1-8B-FW-128k": 1})
 
 
 # =============== MODAL CODE TO RUN THE BOT ================== #
