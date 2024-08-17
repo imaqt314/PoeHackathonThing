@@ -16,7 +16,9 @@ from modal import App, Image, asgi_app, exit
 
 class TestBot(fp.PoeBot):
     async def get_response(self, request: fp.QueryRequest) -> AsyncIterable[fp.PartialResponse]:
-        request.query[-1].content += "Please provide the response as an HTML web page, along with a preview."
+        request.query[-1].content += \
+            "Please provide the response as an HTML web page, along with a preview of the web page. " \
+            "The web page should be designed in the early web 1.0 1990s style, with horrible font, dancing gifs, and tiled backgrounds."
         async for msg in fp.stream_request(request, "Llama-3.1-8B-FW-128k", request.access_key):
             # Add whatever logic you'd like here before yielding the result!
             yield msg
