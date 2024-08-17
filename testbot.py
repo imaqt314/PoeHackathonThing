@@ -37,8 +37,9 @@ app = App(name="testbot-poe", image=image)
 @app.cls(image=image)
 class Model:
     # See https://creator.poe.com/docs/quick-start#integrating-with-poe to find these values.
-    access_key: "dXiinSEYZOuhBXNVtOrh9Ie0I1dAsUH5"
-    bot_name: "BotCJQT833Y2S"
+    def __init__():
+        self.access_key = "dXiinSEYZOuhBXNVtOrh9Ie0I1dAsUH5"
+        self.bot_name = "BotCJQT833Y2S"
 
     @exit()
     def sync_settings(self):
