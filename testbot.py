@@ -16,7 +16,7 @@ from modal import App, Image, asgi_app, exit
 
 class TestBot(fp.PoeBot):
     async def get_response(self, request: fp.QueryRequest) -> AsyncIterable[fp.PartialResponse]:
-        request.query[-1].content += "Please provide the response in iambic pentameter."
+        request.query[-1].content += "Please provide the response as if you were furious and screaming."
         async for msg in fp.stream_request(request, "Llama-3.1-8B-FW-128k", request.access_key):
             # Add whatever logic you'd like here before yielding the result!
             yield msg
